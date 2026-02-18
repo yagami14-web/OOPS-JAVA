@@ -3,26 +3,32 @@ package lab4;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class ByteFileExample {
     public static void main(String[] args) {
         try {
-            FileOutputStream fos = new FileOutputStream("charfile.txt",true);
-            String data = "atharva raghuvanshi is not my name";
-            fos.write(data.getBytes());
-            fos.close();
-            System.out.println("Data written successfully");
-
             FileInputStream fis = new FileInputStream("charfile.txt");
             int i;
-            System.out.println("Reading from file");
+            System.out.println("Existing data in file:\n");
             while ((i = fis.read()) != -1) {
-                System.out.println((char) i);
+                System.out.print((char) i);
             }
             fis.close();
 
+            Scanner sc = new Scanner(System.in);
+            System.out.println("\n\nEnter new data:");
+            String newData = sc.nextLine();
+
+            FileOutputStream fos = new FileOutputStream("charfile.txt");
+            fos.write(("\n" + newData).getBytes());
+            fos.close();
+
+            System.out.println("Data added successfully.");
+            sc.close();
+
         } catch (IOException e) {
-            System.out.print(e);
+            System.out.println(e);
         }
     }
 }
